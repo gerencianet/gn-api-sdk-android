@@ -1,0 +1,12 @@
+.gradle
+/local.properties
+.idea/workspace.xml
+.idea/libraries
+.DS_Store
+/build
+
+pom.xml.releaseBackup
+pom.xml.versionsBackup
+release.properties
+target/
+gradle-app.setting
