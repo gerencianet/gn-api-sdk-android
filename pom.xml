@@ -6,7 +6,7 @@
     <url>https://github.com/gerencianet/gn-api-sdk-android</url>
     <groupId>br.com.gerencianet.mobile</groupId>
     <artifactId>gn-api-sdk-android</artifactId>
-    <version>0.1</version>
+    <version>0.2-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
