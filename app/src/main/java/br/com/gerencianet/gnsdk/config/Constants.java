@@ -5,8 +5,8 @@ package br.com.gerencianet.gnsdk.config;
  */
 public class Constants {
     public static final String TAG = "GnSdk";
-    public static final String BASE_URL_PRODUCTION = "http://192.168.34.22:4400";
-    public static final String BASE_URL_SANDBOX = "http://192.168.34.22:4400";
+    public static final String BASE_URL_PRODUCTION = "https://api.gerencianet.com.br/v1";
+    public static final String BASE_URL_SANDBOX = "https://sandbox.gerencianet.com.br/v1";
 
     public static final String ROUTE_AUTHORIZE = "/authorize";
     public static final String ROUTE_PAYMENT_DATA = "/payment/data";
