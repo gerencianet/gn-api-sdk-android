@@ -29,13 +29,12 @@ public class MainActivity extends Activity implements IGnListener {
         Config config = new Config();
         config.setClientId("");
         config.setClientSecret("");
-        config.setClientSecret("");
         config.setSandbox(true);
 
         CreditCard creditCard = new CreditCard();
         creditCard.setBrand("visa");
         creditCard.setCvv("123");
-        creditCard.setNumber("40120010384433");
+        creditCard.setNumber("4012001038443335");
         creditCard.setExpirationMonth("05");
         creditCard.setExpirationYear("2018");
 
@@ -44,6 +43,7 @@ public class MainActivity extends Activity implements IGnListener {
         paymentType.setTotal(10000);
 
         Endpoints gnClient = new Endpoints(config, this);
+
         gnClient.getPaymentToken(creditCard);
         gnClient.getPaymentData(paymentType);
     }
