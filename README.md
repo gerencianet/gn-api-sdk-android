@@ -13,6 +13,10 @@ provided by [Gerencianet](http://gerencianet.com.br).
 token acquired you can process/confirm payments. The purpose of this SDK is to provide a simple way to get these tokens so that
 you can send them to your backend from your Android mobile apps.*
 
+## Requirements
+
+- Android 2.2+
+
 ## Installation
 
 **Via gradle:**
@@ -174,6 +178,8 @@ This time, `onPaymentDataFetched` will be triggered if the call succeeds.
 ```
 
 As you may have already suspected, `onError` will be called in case of any error.
+
+[Here](https://github.com/gerencianet/gn-api-sdk-android-sample) is a sample app with a checkout page using this SDK.
 
 If you're wondering what to do in your backend code, here are the SDK's that will help:
 
