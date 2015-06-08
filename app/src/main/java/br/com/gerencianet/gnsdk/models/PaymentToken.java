@@ -19,14 +19,21 @@ public class PaymentToken extends GnModel {
 
     @Override
     public void fromJson(JSONObject jsonObject) {
-        if(jsonObject.has("card")) {
-            try {
-                jsonObject = jsonObject.getJSONObject("card");
-                hash = jsonObject.getString("payment_token");
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
+        try {
+            if(!jsonObject.has("data"))
+                return;
+
+            jsonObject = jsonObject.getJSONObject("data");
+
+            if(!jsonObject.has("card"))
+                return;
+
+            jsonObject = jsonObject.getJSONObject("card");
+            hash = jsonObject.getString("payment_token");
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
+
     }
 
     @Override
