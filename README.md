@@ -41,8 +41,7 @@ Instantiate a `Config` object, set your credentials and whether or not you're us
 
 ```java
 Config config = new Config();
-config.setClientId("clientId");
-config.setClientSecret("clientSecret");
+config.setAccountCode("yourAccountCode");
 config.setSandbox(true);
 ```
 
