@@ -13,10 +13,8 @@ import org.robolectric.RobolectricTestRunner;
 
 import br.com.gerencianet.gnsdk.interfaces.IEndpoints;
 import br.com.gerencianet.gnsdk.interfaces.IGnListener;
-import br.com.gerencianet.gnsdk.models.CreditCard;
 import br.com.gerencianet.gnsdk.models.Error;
 import br.com.gerencianet.gnsdk.models.PaymentData;
-import br.com.gerencianet.gnsdk.models.PaymentToken;
 import br.com.gerencianet.gnsdk.models.PaymentType;
 
 import static org.mockito.Matchers.any;
@@ -59,8 +57,7 @@ public class PaymentDataResponseHandlerTest {
     @Test
     public void shouldCallOnPaymentDataFetched() {
         paymentDataResponseHandler =
-            new PaymentDataResponseHandler(
-                gnListener, paymentType, false, endpoints);
+            new PaymentDataResponseHandler(gnListener);
         paymentDataResponseHandler
             .onSuccess(200, headers, successResponse);
 
@@ -69,28 +66,9 @@ public class PaymentDataResponseHandlerTest {
     }
 
     @Test
-    public void shouldCallTryToGetPaymentDataAgain() {
-        paymentDataResponseHandler =
-                new PaymentDataResponseHandler(
-                        gnListener, paymentType, true, endpoints);
-        paymentDataResponseHandler
-                .onFailure(401, headers, new Throwable(), successResponse);
-
-        verify(gnListener, Mockito.never())
-                .onPaymentDataFetched(any(PaymentData.class));
-        verify(gnListener, Mockito.never())
-                .onError(any(Error.class));
-        verify(endpoints, Mockito.times(1))
-                .clearAccessToken();
-        verify(endpoints, Mockito.times(1))
-                .getPaymentData(any(PaymentType.class));
-    }
-
-    @Test
     public void shouldCallOnErrorIfCodeIsNot200() {
         paymentDataResponseHandler =
-                new PaymentDataResponseHandler(
-                        gnListener, paymentType, false, endpoints);
+                new PaymentDataResponseHandler(gnListener);
         paymentDataResponseHandler
                 .onSuccess(200, headers, errorResponse);
 
@@ -103,8 +81,7 @@ public class PaymentDataResponseHandlerTest {
     @Test
     public void shouldCallOnErrorFromOnFailure() {
         paymentDataResponseHandler =
-                new PaymentDataResponseHandler(
-                        gnListener, paymentType, false, endpoints);
+                new PaymentDataResponseHandler(gnListener);
         paymentDataResponseHandler
                 .onFailure(401, headers, new Throwable(), successResponse);
 
@@ -113,16 +90,13 @@ public class PaymentDataResponseHandlerTest {
         verify(gnListener, Mockito.only())
                 .onError(any(Error.class));
         verify(endpoints, Mockito.never())
-                .clearAccessToken();
-        verify(endpoints, Mockito.never())
                 .getPaymentData(any(PaymentType.class));
     }
 
     @Test
     public void shouldCatchJsonException() {
         paymentDataResponseHandler =
-                new PaymentDataResponseHandler(
-                        gnListener, paymentType, false, endpoints);
+                new PaymentDataResponseHandler(gnListener);
         paymentDataResponseHandler
                 .onSuccess(200, headers, new JSONObject());
 

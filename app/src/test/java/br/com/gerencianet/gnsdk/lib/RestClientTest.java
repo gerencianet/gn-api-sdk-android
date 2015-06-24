@@ -61,8 +61,8 @@ public class RestClientTest {
     public void shouldCallPost() {
         restClient = new RestClient(config);
         restClient.setClient(client);
-        restClient.post(Constants.ROUTE_AUTHORIZE, requestParams, responseHandler);
-        String route = restClient.getAbsoluteUrl(Constants.ROUTE_AUTHORIZE);
+        restClient.post(Constants.ROUTE_PAYMENT_DATA, requestParams, responseHandler);
+        String route = restClient.getAbsoluteUrl(Constants.ROUTE_PAYMENT_DATA);
         verify(client, Mockito.only()).post(route, requestParams, responseHandler);
     }
 
@@ -70,8 +70,8 @@ public class RestClientTest {
     public void shouldCallGet() {
         restClient = new RestClient(config);
         restClient.setClient(client);
-        restClient.get(Constants.ROUTE_AUTHORIZE, requestParams, responseHandler);
-        String route = restClient.getAbsoluteUrl(Constants.ROUTE_AUTHORIZE);
+        restClient.get(Constants.ROUTE_PAYMENT_DATA, requestParams, responseHandler);
+        String route = restClient.getAbsoluteUrl(Constants.ROUTE_PAYMENT_DATA);
         verify(client, Mockito.only()).get(route, requestParams, responseHandler);
     }
 }

@@ -15,9 +15,9 @@ import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.robolectric.RobolectricTestRunner;
 
+import br.com.gerencianet.gnsdk.config.Config;
 import br.com.gerencianet.gnsdk.lib.RestClient;
 import br.com.gerencianet.gnsdk.models.CreditCard;
-import br.com.gerencianet.gnsdk.models.Token;
 
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
@@ -29,8 +29,8 @@ import static org.mockito.Mockito.when;
  */
 @RunWith(RobolectricTestRunner.class)
 public class PaymentTokenRequesterTest {
-    private Token accessToken;
     private PaymentTokenRequester requester;
+    private Config config;
 
     @Mock
     private RestClient client;
@@ -46,10 +46,12 @@ public class PaymentTokenRequesterTest {
     @Before
     public void setup() throws JSONException {
         MockitoAnnotations.initMocks(this);
-        requester = new PaymentTokenRequester();
-        accessToken = new Token();
-        accessToken.setAccessToken("123");
-        accessToken.setExpiresAt(360);
+
+        config = new Config();
+        config.setAccountCode("123");
+        config.setSandbox(true);
+
+        requester = new PaymentTokenRequester(config);
         requester.setCreditCard(creditCard);
         requester.setClient(client);
         requester.setResponseHandler(responseHandler);
@@ -58,11 +60,11 @@ public class PaymentTokenRequesterTest {
     }
 
     @Test
-    public void shouldDoPostWithAccessTokenAndPayloadData() {
-        requester.doPost(accessToken);
+    public void shouldDoPostWithAccountCodeAndPayloadData() {
+        requester.doPost();
 
         RequestParams params = requester.getParams();
-        Assert.assertEquals(params.has("access_token"), true);
+        Assert.assertEquals(params.has("account_code"), true);
         Assert.assertEquals(params.has("data"), true);
 
         verify(client, Mockito.only()).post(

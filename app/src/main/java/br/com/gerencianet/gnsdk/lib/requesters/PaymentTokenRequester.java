@@ -5,11 +5,11 @@ import com.loopj.android.http.RequestParams;
 
 import org.json.JSONObject;
 
+import br.com.gerencianet.gnsdk.config.Config;
 import br.com.gerencianet.gnsdk.config.Constants;
 import br.com.gerencianet.gnsdk.interfaces.IRequester;
 import br.com.gerencianet.gnsdk.lib.RestClient;
 import br.com.gerencianet.gnsdk.models.CreditCard;
-import br.com.gerencianet.gnsdk.models.Token;
 
 /**
  * Created by francisco on 22/05/15.
@@ -19,15 +19,18 @@ public class PaymentTokenRequester implements IRequester {
     private RequestParams params;
     private RestClient client;
     private CreditCard creditCard;
+    private Config config;
 
-    public PaymentTokenRequester() {}
+    public PaymentTokenRequester(Config config) {
+        this.config = config;
+    }
 
     @Override
-    public void doPost(Token accessToken) {
+    public void doPost() {
         JSONObject card = creditCard.toJson();
         params = new RequestParams();
         params.add("data", card.toString());
-        params.add("access_token", accessToken.getHash());
+        params.add("account_code", config.getAccountCode());
         client.post(Constants.ROUTE_SAVE_CARD, params, responseHandler);
     }
 

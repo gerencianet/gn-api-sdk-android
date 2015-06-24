@@ -9,17 +9,10 @@ import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.invocation.InvocationOnMock;
-import org.mockito.stubbing.Answer;
 import org.robolectric.RobolectricTestRunner;
 
-import br.com.gerencianet.gnsdk.config.Config;
 import br.com.gerencianet.gnsdk.interfaces.IEndpoints;
 import br.com.gerencianet.gnsdk.interfaces.IGnListener;
-import br.com.gerencianet.gnsdk.lib.Authenticator;
-import br.com.gerencianet.gnsdk.lib.Endpoints;
-import br.com.gerencianet.gnsdk.lib.listeners.AuthListener;
-import br.com.gerencianet.gnsdk.lib.requesters.PaymentTokenRequester;
 import br.com.gerencianet.gnsdk.models.*;
 import br.com.gerencianet.gnsdk.models.Error;
 
@@ -63,8 +56,7 @@ public class PaymentTokenResponseHandlerTest {
     @Test
     public void shouldCallOnPaymentTokenFetched() {
         paymentTokenResponseHandler =
-            new PaymentTokenResponseHandler(
-                gnListener, creditCard, false, endpoints);
+            new PaymentTokenResponseHandler(gnListener);
         paymentTokenResponseHandler
             .onSuccess(200, headers, successResponse);
 
@@ -73,28 +65,9 @@ public class PaymentTokenResponseHandlerTest {
     }
 
     @Test
-    public void shouldCallTryToGetPaymentTokenAgain() {
-        paymentTokenResponseHandler =
-                new PaymentTokenResponseHandler(
-                        gnListener, creditCard, true, endpoints);
-        paymentTokenResponseHandler
-                .onFailure(401, headers, new Throwable(), successResponse);
-
-        verify(gnListener, Mockito.never())
-                .onPaymentTokenFetched(any(PaymentToken.class));
-        verify(gnListener, Mockito.never())
-                .onError(any(Error.class));
-        verify(endpoints, Mockito.times(1))
-                .clearAccessToken();
-        verify(endpoints, Mockito.times(1))
-                .getPaymentToken(any(CreditCard.class));
-    }
-
-    @Test
     public void shouldCallOnErrorIfCodeIsNot200() {
         paymentTokenResponseHandler =
-                new PaymentTokenResponseHandler(
-                        gnListener, creditCard, false, endpoints);
+                new PaymentTokenResponseHandler(gnListener);
         paymentTokenResponseHandler
                 .onSuccess(200, headers, errorResponse);
 
@@ -107,8 +80,7 @@ public class PaymentTokenResponseHandlerTest {
     @Test
     public void shouldCallOnErrorFromOnFailure() {
         paymentTokenResponseHandler =
-                new PaymentTokenResponseHandler(
-                        gnListener, creditCard, false, endpoints);
+                new PaymentTokenResponseHandler(gnListener);
         paymentTokenResponseHandler
                 .onFailure(401, headers, new Throwable(), successResponse);
 
@@ -117,16 +89,13 @@ public class PaymentTokenResponseHandlerTest {
         verify(gnListener, Mockito.only())
                 .onError(any(Error.class));
         verify(endpoints, Mockito.never())
-                .clearAccessToken();
-        verify(endpoints, Mockito.never())
                 .getPaymentToken(any(CreditCard.class));
     }
 
     @Test
     public void shouldCatchJsonException() {
         paymentTokenResponseHandler =
-                new PaymentTokenResponseHandler(
-                        gnListener, creditCard, false, endpoints);
+                new PaymentTokenResponseHandler(gnListener);
         paymentTokenResponseHandler
                 .onSuccess(200, headers, new JSONObject());
 
