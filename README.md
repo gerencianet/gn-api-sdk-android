@@ -37,7 +37,7 @@ compile 'br.com.gerencianet.mobile:gn-api-sdk-android:0.4'
 
 ## Usage
 
-Instantiate a `Config` object, set your credentials and whether or not you're using sandbox environment:
+Instantiate a `Config` object, set your account code and whether or not you're using sandbox environment:
 
 ```java
 Config config = new Config();
