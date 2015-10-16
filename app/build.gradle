@@ -41,12 +41,13 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.google.code.gson:gson:1.7.2'
     compile 'com.loopj.android:android-async-http:1.4.5'
+    compile 'com.madgag.spongycastle:core:1.51.0.0'
 
     testCompile 'junit:junit:4.12'
     testCompile 'org.easytesting:fest:1.0.16'
     testCompile 'com.squareup:fest-android:1.0.8'
     testCompile 'org.mockito:mockito-core:1.10.19'
-    testCompile "org.robolectric:robolectric:2.4"
+    testCompile "org.robolectric:robolectric:3.0"
     testCompile 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
 }
 
@@ -69,7 +70,8 @@ task jacocoTestReport(type:JacocoReport, dependsOn: "testDebug") {
                        '**/interfaces/*',
                        '**/config/*',
                        '**/models/*',
-                       '**/MainActivity*']
+                       '**/MainActivity*',
+                       '**/RSA*']
     )
 
     additionalSourceDirs = files(coverageSourceDirs)

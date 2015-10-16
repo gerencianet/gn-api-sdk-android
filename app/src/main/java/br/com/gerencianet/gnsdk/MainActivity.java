@@ -27,7 +27,7 @@ public class MainActivity extends Activity implements IGnListener {
         setContentView(R.layout.activity_main);
 
         Config config = new Config();
-        config.setAccountCode("");
+        config.setAccountCode("YOUR_ACCOUNT_CODE");
         config.setSandbox(true);
 
         CreditCard creditCard = new CreditCard();

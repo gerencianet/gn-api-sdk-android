@@ -43,6 +43,7 @@ public class PaymentDataResponseHandler extends JsonHttpResponseHandler {
     @Override
     public void onFailure(int statusCode, Header[] headers, Throwable throwable, JSONObject errorResponse) {
         super.onFailure(statusCode, headers, throwable, errorResponse);
+        JSONObject res = errorResponse;
         gnListener.onError(new Error(errorResponse));
     }
 }

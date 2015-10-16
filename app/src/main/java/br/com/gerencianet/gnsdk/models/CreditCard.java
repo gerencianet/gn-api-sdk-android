@@ -15,7 +15,11 @@ public class CreditCard extends GnModel {
     private String cvv;
 
     public String getNumber() {
-        return number;
+        if (number != null) {
+            return number;
+        } else {
+            return "";
+        }
     }
 
     public void setNumber(String number) {
@@ -23,7 +27,11 @@ public class CreditCard extends GnModel {
     }
 
     public String getBrand() {
-        return brand;
+        if (brand != null) {
+            return brand;
+        } else {
+            return "";
+        }
     }
 
     public void setBrand(String brand) {
@@ -31,7 +39,11 @@ public class CreditCard extends GnModel {
     }
 
     public String getExpirationMonth() {
-        return expirationMonth;
+        if (expirationMonth != null) {
+            return expirationMonth;
+        } else {
+            return "";
+        }
     }
 
     public void setExpirationMonth(String expirationMonth) {
@@ -39,7 +51,11 @@ public class CreditCard extends GnModel {
     }
 
     public String getExpirationYear() {
-        return expirationYear;
+        if (expirationYear != null) {
+            return expirationYear;
+        } else {
+            return "";
+        }
     }
 
     public void setExpirationYear(String expirationYear) {
@@ -47,7 +63,11 @@ public class CreditCard extends GnModel {
     }
 
     public String getCvv() {
-        return cvv;
+        if (cvv != null) {
+            return cvv;
+        } else {
+            return "";
+        }
     }
 
     public void setCvv(String cvv) {

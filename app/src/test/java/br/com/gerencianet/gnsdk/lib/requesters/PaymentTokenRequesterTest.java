@@ -5,6 +5,8 @@ import com.loopj.android.http.RequestParams;
 
 import junit.framework.Assert;
 
+import org.apache.http.Header;
+import org.apache.http.message.BasicHeader;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.junit.Before;
@@ -20,9 +22,9 @@ import br.com.gerencianet.gnsdk.lib.RestClient;
 import br.com.gerencianet.gnsdk.models.CreditCard;
 
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
 
 /**
  * Created by francisco on 22/05/15.
@@ -31,12 +33,13 @@ import static org.mockito.Mockito.when;
 public class PaymentTokenRequesterTest {
     private PaymentTokenRequester requester;
     private Config config;
+    private CreditCard creditCard;
+
+    private String pubKey;
+    private Header[] headers;
 
     @Mock
     private RestClient client;
-
-    @Mock
-    private CreditCard creditCard;
 
     @Mock
     private JsonHttpResponseHandler responseHandler;
@@ -51,27 +54,63 @@ public class PaymentTokenRequesterTest {
         config.setAccountCode("123");
         config.setSandbox(true);
 
-        requester = new PaymentTokenRequester(config);
+        creditCard = new CreditCard();
+
+        requester = new PaymentTokenRequester();
         requester.setCreditCard(creditCard);
         requester.setClient(client);
         requester.setResponseHandler(responseHandler);
-        when(creditCard.toJson())
-            .thenReturn(new JSONObject());
+
+        pubKey = "-----BEGIN PUBLIC KEY-----\n" +
+                "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCyvgUOi8YL/pjv9jHXYzUSFS9f\n" +
+                "uX7FfgBAqRoR7H19SOkh0enmMWVQuZGfArdZ3LAdiJ4A290fc9nXYvzBIvIsSCsH\n" +
+                "wJV1MlUr910Po0M+2NmMvpCS/VmRWB4zATAzR/4CAjq7JUgHcWe6VUiPCViOWifF\n" +
+                "3XnS4BBpB4wX7+54KQIDAQAB\n" +
+                "-----END PUBLIC KEY-----";
+        headers = new Header[]{
+                new BasicHeader("Content-Type", "application/json")
+        };
     }
 
     @Test
-    public void shouldDoPostWithAccountCodeAndPayloadData() {
+    public void shouldRequestPublicKey() {
         requester.doPost();
+        verify(client, Mockito.only()).get(
+                anyString(),
+                any(RequestParams.class),
+                any(JsonHttpResponseHandler.class));
+    }
 
-        RequestParams params = requester.getParams();
-        Assert.assertEquals(params.has("account_code"), true);
-        Assert.assertEquals(params.has("data"), true);
+    @Test
+    public void shouldPostEncryptedCard() {
+        try {
+            JSONObject pubKeyResponse = new JSONObject("{\"code\": 200, \"data\": \"" + pubKey + "\"}");
+            requester.onSuccess(200, headers, pubKeyResponse);
+        } catch(JSONException e) {
+            Assert.fail();
+        }
 
+        Assert.assertTrue(requester.getParams().has("data"));
         verify(client, Mockito.only()).post(
                 anyString(),
                 any(RequestParams.class),
                 any(JsonHttpResponseHandler.class));
-
-        verify(creditCard, Mockito.only()).toJson();
     }
+
+    @Test
+    public void shouldCallFailureResponse() {
+        try {
+            JSONObject pubKeyResponse = new JSONObject("{\"code\": 500}");
+            requester.onSuccess(200, headers, pubKeyResponse);
+        } catch(JSONException e) {
+            Assert.fail();
+        }
+
+        verify(responseHandler, Mockito.only()).onFailure(
+                anyInt(),
+                any(Header[].class),
+                any(Throwable.class),
+                any(JSONObject.class));
+    }
+
 }

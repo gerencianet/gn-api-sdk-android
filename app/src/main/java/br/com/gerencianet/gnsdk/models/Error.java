@@ -38,14 +38,16 @@ public class Error extends GnModel {
         try {
             if(jsonObject.has("code")) {
                 this.code = jsonObject.getInt("code");
+            } else {
+                this.code = 500;
             }
 
             if(jsonObject.has("error_description")) {
                 this.message = jsonObject.getString("error_description");
+            } else {
+                this.message = "invalid data";
             }
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
+        } catch (JSONException e) {}
     }
 
     @Override

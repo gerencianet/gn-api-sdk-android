@@ -11,7 +11,11 @@ public class PaymentType extends GnModel {
     private Integer total;
 
     public String getName() {
-        return name;
+        if (name != null) {
+            return name;
+        } else {
+            return "";
+        }
     }
 
     public void setName(String name) {
@@ -19,7 +23,11 @@ public class PaymentType extends GnModel {
     }
 
     public Integer getTotal() {
-        return total;
+        if (total != null) {
+            return total;
+        } else {
+            return 0;
+        }
     }
 
     public void setTotal(Integer total) {
@@ -35,7 +43,7 @@ public class PaymentType extends GnModel {
         JSONObject type = new JSONObject();
 
         try {
-            type.put("type", name);
+            type.put("brand", name);
             type.put("total", total);
         } catch (JSONException e) {
             e.printStackTrace();
@@ -43,4 +51,5 @@ public class PaymentType extends GnModel {
 
         return type;
     }
+
 }

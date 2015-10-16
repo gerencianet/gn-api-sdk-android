@@ -42,6 +42,7 @@ public class RestClientTest {
         MockitoAnnotations.initMocks(this);
         config = new Config();
         config.setSandbox(true);
+        config.setAccountCode("");
     }
 
     @Test

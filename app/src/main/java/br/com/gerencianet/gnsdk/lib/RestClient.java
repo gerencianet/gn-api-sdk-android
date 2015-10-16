@@ -16,7 +16,8 @@ public class RestClient {
     private AsyncHttpClient client;
 
     public RestClient(Config config) {
-        client = new AsyncHttpClient();
+        client = new AsyncHttpClient(false, 80, 443);
+        client.addHeader("account-code", config.getAccountCode());
 
         if(config.isSandbox()) {
             baseUrl = Constants.BASE_URL_SANDBOX;
@@ -43,5 +44,9 @@ public class RestClient {
 
     public void setClient(AsyncHttpClient client) {
         this.client = client;
+    }
+
+    public AsyncHttpClient getClient() {
+        return client;
     }
 }
