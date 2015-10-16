@@ -3,8 +3,8 @@ package br.com.gerencianet.gnsdk.lib;
 import br.com.gerencianet.gnsdk.config.Config;
 import br.com.gerencianet.gnsdk.interfaces.IEndpoints;
 import br.com.gerencianet.gnsdk.interfaces.IGnListener;
-import br.com.gerencianet.gnsdk.lib.handlers.PaymentDataResponseHandler;
-import br.com.gerencianet.gnsdk.lib.requesters.PaymentDataRequester;
+import br.com.gerencianet.gnsdk.lib.handlers.InstallmentsResponseHandler;
+import br.com.gerencianet.gnsdk.lib.requesters.InstallmentsRequester;
 import br.com.gerencianet.gnsdk.lib.requesters.PaymentTokenRequester;
 import br.com.gerencianet.gnsdk.lib.handlers.PaymentTokenResponseHandler;
 import br.com.gerencianet.gnsdk.models.CreditCard;
@@ -21,14 +21,14 @@ public class Endpoints implements IEndpoints {
     private PaymentTokenRequester paymentTokenRequester;
     private PaymentTokenResponseHandler paymentTokenResponseHandler;
 
-    private PaymentDataRequester paymentDataRequester;
-    private PaymentDataResponseHandler paymentDataResponseHandler;
+    private InstallmentsRequester installmentsRequester;
+    private InstallmentsResponseHandler installmentsResponseHandler;
 
     public Endpoints(Config config, IGnListener listener) {
         this.listener = listener;
         client = new RestClient(config);
         paymentTokenRequester = new PaymentTokenRequester();
-        paymentDataRequester = new PaymentDataRequester();
+        installmentsRequester = new InstallmentsRequester();
     }
 
     @Override
@@ -43,21 +43,21 @@ public class Endpoints implements IEndpoints {
     }
 
     @Override
-    public void getPaymentData(PaymentType paymentType) {
-        paymentDataResponseHandler =
-            new PaymentDataResponseHandler(listener);
+    public void getInstallments(PaymentType paymentType) {
+        installmentsResponseHandler =
+            new InstallmentsResponseHandler(listener);
 
-        paymentDataRequester.setPaymentType(paymentType);
-        paymentDataRequester.setClient(client);
-        paymentDataRequester.setResponseHandler(paymentDataResponseHandler);
-        paymentDataRequester.doPost();
+        installmentsRequester.setPaymentType(paymentType);
+        installmentsRequester.setClient(client);
+        installmentsRequester.setResponseHandler(installmentsResponseHandler);
+        installmentsRequester.doPost();
     }
 
     public void setPaymentTokenRequester(PaymentTokenRequester paymentTokenRequester) {
         this.paymentTokenRequester = paymentTokenRequester;
     }
 
-    public void setPaymentDataRequester(PaymentDataRequester paymentDataRequester) {
-        this.paymentDataRequester = paymentDataRequester;
+    public void setInstallmentsRequester(InstallmentsRequester installmentsRequester) {
+        this.installmentsRequester = installmentsRequester;
     }
 }

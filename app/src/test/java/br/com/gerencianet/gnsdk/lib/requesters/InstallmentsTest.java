@@ -26,9 +26,9 @@ import static org.mockito.Mockito.verify;
  * Created by francisco on 22/05/15.
  */
 @RunWith(RobolectricTestRunner.class)
-public class PaymentDataRequesterTest {
+public class InstallmentsTest {
     private PaymentType paymentType;
-    private PaymentDataRequester requester;
+    private InstallmentsRequester requester;
 
     @Mock
     private Config config;
@@ -39,7 +39,7 @@ public class PaymentDataRequesterTest {
     @Mock
     private JsonHttpResponseHandler responseHandler;
 
-    public PaymentDataRequesterTest() {}
+    public InstallmentsTest() {}
 
     @Before
     public void setup() throws JSONException {
@@ -51,7 +51,7 @@ public class PaymentDataRequesterTest {
 
         paymentType = new PaymentType();
 
-        requester = new PaymentDataRequester();
+        requester = new InstallmentsRequester();
         requester.setPaymentType(paymentType);
         requester.setClient(client);
         requester.setResponseHandler(responseHandler);

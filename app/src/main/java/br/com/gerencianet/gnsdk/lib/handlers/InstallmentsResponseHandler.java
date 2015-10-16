@@ -13,11 +13,11 @@ import br.com.gerencianet.gnsdk.models.Error;
 /**
  * Created by francisco on 25/05/15.
  */
-public class PaymentDataResponseHandler extends JsonHttpResponseHandler {
+public class InstallmentsResponseHandler extends JsonHttpResponseHandler {
 
     private IGnListener gnListener;
 
-    public PaymentDataResponseHandler(IGnListener gnListener) {
+    public InstallmentsResponseHandler(IGnListener gnListener) {
         this.gnListener = gnListener;
     }
 
@@ -28,7 +28,7 @@ public class PaymentDataResponseHandler extends JsonHttpResponseHandler {
         try {
             if(response.getString("code").equals("200")) {
                 PaymentData paymentData = new PaymentData(response);
-                gnListener.onPaymentDataFetched(paymentData);
+                gnListener.onInstallmentsFetched(paymentData);
             } else {
                 gnListener.onError(new Error(response));
             }

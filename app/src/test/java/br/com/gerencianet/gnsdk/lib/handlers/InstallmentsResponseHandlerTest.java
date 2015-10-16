@@ -24,9 +24,9 @@ import static org.mockito.Mockito.verify;
  * Created by francisco on 22/05/15.
  */
 @RunWith(RobolectricTestRunner.class)
-public class PaymentDataResponseHandlerTest {
+public class InstallmentsResponseHandlerTest {
 
-    private PaymentDataResponseHandler paymentDataResponseHandler;
+    private InstallmentsResponseHandler installmentsResponseHandler;
     private JSONObject successResponse;
     private JSONObject errorResponse;
     private Header[] headers = new Header[1];
@@ -40,7 +40,7 @@ public class PaymentDataResponseHandlerTest {
     @Mock
     IEndpoints endpoints;
 
-    public PaymentDataResponseHandlerTest() throws JSONException {
+    public InstallmentsResponseHandlerTest() throws JSONException {
         successResponse = new JSONObject();
         errorResponse = new JSONObject();
         successResponse = new JSONObject();
@@ -56,52 +56,52 @@ public class PaymentDataResponseHandlerTest {
 
     @Test
     public void shouldCallOnPaymentDataFetched() {
-        paymentDataResponseHandler =
-            new PaymentDataResponseHandler(gnListener);
-        paymentDataResponseHandler
+        installmentsResponseHandler =
+            new InstallmentsResponseHandler(gnListener);
+        installmentsResponseHandler
             .onSuccess(200, headers, successResponse);
 
         verify(gnListener, Mockito.only())
-            .onPaymentDataFetched(any(PaymentData.class));
+            .onInstallmentsFetched(any(PaymentData.class));
     }
 
     @Test
     public void shouldCallOnErrorIfCodeIsNot200() {
-        paymentDataResponseHandler =
-                new PaymentDataResponseHandler(gnListener);
-        paymentDataResponseHandler
+        installmentsResponseHandler =
+                new InstallmentsResponseHandler(gnListener);
+        installmentsResponseHandler
                 .onSuccess(200, headers, errorResponse);
 
         verify(gnListener, Mockito.never())
-                .onPaymentDataFetched(any(PaymentData.class));
+                .onInstallmentsFetched(any(PaymentData.class));
         verify(gnListener, Mockito.only())
                 .onError(any(Error.class));
     }
 
     @Test
     public void shouldCallOnErrorFromOnFailure() {
-        paymentDataResponseHandler =
-                new PaymentDataResponseHandler(gnListener);
-        paymentDataResponseHandler
+        installmentsResponseHandler =
+                new InstallmentsResponseHandler(gnListener);
+        installmentsResponseHandler
                 .onFailure(401, headers, new Throwable(), successResponse);
 
         verify(gnListener, Mockito.never())
-                .onPaymentDataFetched(any(PaymentData.class));
+                .onInstallmentsFetched(any(PaymentData.class));
         verify(gnListener, Mockito.only())
                 .onError(any(Error.class));
         verify(endpoints, Mockito.never())
-                .getPaymentData(any(PaymentType.class));
+                .getInstallments(any(PaymentType.class));
     }
 
     @Test
     public void shouldCatchJsonException() {
-        paymentDataResponseHandler =
-                new PaymentDataResponseHandler(gnListener);
-        paymentDataResponseHandler
+        installmentsResponseHandler =
+                new InstallmentsResponseHandler(gnListener);
+        installmentsResponseHandler
                 .onSuccess(200, headers, new JSONObject());
 
         verify(gnListener, Mockito.never())
-                .onPaymentDataFetched(any(PaymentData.class));
+                .onInstallmentsFetched(any(PaymentData.class));
         verify(gnListener, Mockito.only())
                 .onError(any(Error.class));
     }

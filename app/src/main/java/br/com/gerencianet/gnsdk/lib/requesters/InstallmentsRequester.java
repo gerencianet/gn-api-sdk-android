@@ -11,13 +11,13 @@ import br.com.gerencianet.gnsdk.models.PaymentType;
 /**
  * Created by francisco on 22/05/15.
  */
-public class PaymentDataRequester implements IRequester {
+public class InstallmentsRequester implements IRequester {
     private JsonHttpResponseHandler responseHandler;
     private RequestParams params;
     private RestClient client;
     private PaymentType paymentType;
 
-    public PaymentDataRequester() {}
+    public InstallmentsRequester() {}
 
     @Override
     public void doPost() {

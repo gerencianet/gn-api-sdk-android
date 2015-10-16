@@ -8,5 +8,5 @@ import br.com.gerencianet.gnsdk.models.PaymentType;
  */
 public interface IEndpoints {
     public void getPaymentToken(CreditCard creditCard);
-    public void getPaymentData(PaymentType paymentType);
+    public void getInstallments(PaymentType paymentType);
 }

@@ -46,7 +46,4 @@ public class RestClient {
         this.client = client;
     }
 
-    public AsyncHttpClient getClient() {
-        return client;
-    }
 }

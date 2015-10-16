@@ -10,7 +10,7 @@ import org.robolectric.RobolectricTestRunner;
 
 import br.com.gerencianet.gnsdk.config.Config;
 import br.com.gerencianet.gnsdk.interfaces.IGnListener;
-import br.com.gerencianet.gnsdk.lib.requesters.PaymentDataRequester;
+import br.com.gerencianet.gnsdk.lib.requesters.InstallmentsRequester;
 import br.com.gerencianet.gnsdk.lib.requesters.PaymentTokenRequester;
 import br.com.gerencianet.gnsdk.models.CreditCard;
 import br.com.gerencianet.gnsdk.models.PaymentType;
@@ -40,7 +40,7 @@ public class EndpointsTest {
     private PaymentTokenRequester paymentTokenRequester;
 
     @Mock
-    private PaymentDataRequester paymentDataRequester;
+    private InstallmentsRequester installmentsRequester;
 
     public EndpointsTest() {}
 
@@ -49,7 +49,7 @@ public class EndpointsTest {
         MockitoAnnotations.initMocks(this);
         endpoints = new Endpoints(config, mockListener);
         endpoints.setPaymentTokenRequester(paymentTokenRequester);
-        endpoints.setPaymentDataRequester(paymentDataRequester);
+        endpoints.setInstallmentsRequester(installmentsRequester);
     }
 
     @Test
@@ -59,8 +59,8 @@ public class EndpointsTest {
     }
 
     @Test
-    public void shouldGetPaymentData() {
-        endpoints.getPaymentData(paymentType);
-        verify(paymentDataRequester, Mockito.times(1)).doPost();
+    public void shouldGetInstallments() {
+        endpoints.getInstallments(paymentType);
+        verify(installmentsRequester, Mockito.times(1)).doPost();
     }
 }

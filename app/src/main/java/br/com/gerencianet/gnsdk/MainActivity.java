@@ -44,7 +44,7 @@ public class MainActivity extends Activity implements IGnListener {
         Endpoints gnClient = new Endpoints(config, this);
 
         gnClient.getPaymentToken(creditCard);
-        gnClient.getPaymentData(paymentType);
+        gnClient.getInstallments(paymentType);
     }
 
     @Override
@@ -65,7 +65,7 @@ public class MainActivity extends Activity implements IGnListener {
     }
 
     @Override
-    public void onPaymentDataFetched(PaymentData paymentData) {
+    public void onInstallmentsFetched(PaymentData paymentData) {
         Log.d(Constants.TAG, "Payment Data: " + new Gson().toJson(paymentData));
     }
 
