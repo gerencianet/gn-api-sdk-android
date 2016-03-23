@@ -171,5 +171,11 @@
             <artifactId>android-async-http</artifactId>
             <version>1.4.6</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.madgag.spongycastle</groupId>
+            <artifactId>core</artifactId>
+            <version>1.50.0.0</version>
+        </dependency>
     </dependencies>
 </project>
