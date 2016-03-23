@@ -22,7 +22,7 @@ you can send them to your backend from your Android mobile apps.*
 **Via gradle:**
 
 ```gradle
-compile 'br.com.gerencianet.mobile:gn-api-sdk-android:0.4'
+compile 'br.com.gerencianet.mobile:gn-api-sdk-android:0.6'
 ```
 
 **Via maven:**
