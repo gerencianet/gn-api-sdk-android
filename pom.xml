@@ -6,7 +6,7 @@
     <url>https://github.com/gerencianet/gn-api-sdk-android</url>
     <groupId>br.com.gerencianet.mobile</groupId>
     <artifactId>gn-api-sdk-android</artifactId>
-    <version>0.6</version>
+    <version>0.7-SNAPSHOT</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -43,7 +43,7 @@
         <connection>scm:git:git://github.com/gerencianet/gn-api-sdk-android.git</connection>
         <developerConnection>scm:git:git@github.com:gerencianet/gn-api-sdk-android.git</developerConnection>
         <url>https://github.com/gerencianet/gn-api-sdk-android</url>
-        <tag>gn-api-sdk-android-0.6</tag>
+        <tag>gn-api-sdk-android-0.1</tag>
     </scm>
 
     <build>
