@@ -31,7 +31,7 @@ compile 'br.com.gerencianet.mobile:gn-api-sdk-android:0.4'
 <dependency>
   <groupId>br.com.gerencianet.mobile</groupId>
   <artifactId>gn-api-sdk-android</artifactId>
-  <version>0.4</version>
+  <version>0.6</version>
 </dependency>
 ```
 
