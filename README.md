@@ -3,8 +3,6 @@
 > An Android SDK for easy integration of your mobile apps with the payment methods
 provided by [Gerencianet](http://gerencianet.com.br).
 
-:warning: **This module is under development and is based on the new API that Gerencianet is about to release. It won't work in production by now.**
-
 [![Build Status](https://travis-ci.org/gerencianet/gn-api-sdk-android.svg?branch=master)](https://travis-ci.org/gerencianet/gn-api-sdk-android)
 [![Coverage Status](https://coveralls.io/repos/gerencianet/gn-api-sdk-android/badge.svg)](https://coveralls.io/r/gerencianet/gn-api-sdk-android)
 [![Maven Central](https://img.shields.io/maven-central/v/br.com.gerencianet.mobile/gn-api-sdk-android.svg)](https://search.maven.org/#search|ga|1|g:"br.com.gerencianet.mobile" AND a:"gn-api-sdk-android")
