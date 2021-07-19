@@ -1,1 +1,3 @@
+rootProject.name = "gnsdk"
 include ':app'
+include ':sdkandroid'
