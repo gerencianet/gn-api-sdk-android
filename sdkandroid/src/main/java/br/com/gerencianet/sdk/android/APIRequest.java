@@ -2,7 +2,6 @@ package br.com.gerencianet.sdk.android;
 
 import android.content.res.AssetManager;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
@@ -14,18 +13,22 @@ import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import com.google.gson.JsonObject;
 import br.com.gerencianet.sdk.android.exceptions.AuthorizationException;
-import br.com.gerencianet.sdk.android.exceptions.GerencianetException;
 
 public class APIRequest {
     private final Request requester;
-    private final Auth authenticator;
+    private Auth authenticator;
     private final JsonObject body;
+    private final Config config;
+    private final String authenticateRoute;
+    private final String authenticateMethod;
+    private final AssetManager cert;
 
     public APIRequest(String method, String route, JsonObject body, Config config, AssetManager cert) throws Exception {
-        String authenticateRoute = config.getEndpoints().getAsJsonObject("authorize").get("route").getAsString();
-        String authenticateMethod = config.getEndpoints().getAsJsonObject("authorize").get("method").getAsString();
-
-        this.authenticator = new Auth(config.getOptions(), authenticateMethod, authenticateRoute, cert);
+        this.config = config;
+        this.authenticateMethod = config.getEndpoints().getAsJsonObject("authorize").get("method").getAsString();
+        this.authenticateRoute = config.getEndpoints().getAsJsonObject("authorize").get("route").getAsString();
+        this.cert = cert;
+        this.auth();
 
         String url = config.getOptions().get("baseUri") + route;
         URL link = new URL(url);
@@ -41,18 +44,20 @@ public class APIRequest {
             this.requester = new Request(method, client);
         }
 
-        if (config.getOptions().containsKey("partnerToken")) {
+        if (config.getOptions().containsKey("partnerToken"))
             this.requester.addHeader("partner-token", (String) config.getOptions().get("partnerToken"));
-        }
-
-        if (config.getOptions().containsKey("headers")) {
+        if (config.getOptions().containsKey("headers"))
             this.requester.addHeader("x-skip-mtls-checking", (String) config.getOptions().get("headers"));
-        }
+
 
         this.body = body;
     }
 
-    public JsonObject send() throws AuthorizationException, GerencianetException, IOException {
+    public void auth() throws Exception {
+        this.authenticator = new Auth(config.getOptions(), authenticateMethod, authenticateRoute, cert);
+    }
+
+    public JsonObject send() throws Exception {
 
         Date expiredDate = this.authenticator.getExpires();
 
@@ -65,6 +70,7 @@ public class APIRequest {
         try {
             return this.requester.send(this.body);
         } catch (AuthorizationException e) {
+            this.auth();
             this.authenticator.authorize();
             return this.requester.send(body);
         }
