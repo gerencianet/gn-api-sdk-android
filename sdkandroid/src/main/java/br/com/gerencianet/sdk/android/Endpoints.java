@@ -2,6 +2,7 @@ package br.com.gerencianet.sdk.android;
 
 
 import android.content.res.AssetManager;
+
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
@@ -12,6 +13,7 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.google.gson.stream.JsonReader;
@@ -41,7 +43,11 @@ public class Endpoints {
     public Map<String, Object> call(String endpoint, Map<String, String> params, Map<String, Object> mapBody)
             throws Exception {
         JsonObject body = new Gson().toJsonTree(mapBody).getAsJsonObject();
-        JsonObject response = kernelCall(endpoint, params, body);
+        JsonObject response;
+        if (!endpoint.equals("paymentToken"))
+            response = kernelCall(endpoint, params, body);
+        else
+            response = new PaymentToken(this.config).generate(mapBody);
         Map<String, Object> map = new Gson().fromJson(response.toString(), Map.class);
         return map;
     }

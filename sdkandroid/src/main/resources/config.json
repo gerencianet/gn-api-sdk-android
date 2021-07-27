@@ -7,7 +7,8 @@
     "PIX": {
       "production": "https://api-pix.gerencianet.com.br",
       "sandbox": "https://api-pix-h.gerencianet.com.br"
-    }
+    },
+    "TOKENIZER": "https://tokenizer.gerencianet.com.br/salt"
   },
   "ENDPOINTS": {
     "DEFAULT" : {
@@ -22,6 +23,10 @@
       "oneStep": {
         "route": "/v1/charge/one-step",
         "method": "post"
+      },
+      "pubKey": {
+        "route": "/v1/pubkey?code=",
+        "method": "get"
       },
       "detailCharge": {
         "route": "/v1/charge/:id",

@@ -29,6 +29,7 @@ public class Config {
 
         if (config.has("URL")) {
             this.urls = (JsonObject) config.get("URL");
+            options.put("tokenizer", this.urls.get("TOKENIZER").getAsString());
             if (setPix(options)) {
                 if (this.urls.has("PIX")) {
                     this.urls = (JsonObject) this.urls.get("PIX");
@@ -66,6 +67,10 @@ public class Config {
             this.conf.put("certificadoPix", options.get("pix_cert"));
         if (options.containsKey("partner_token"))
             this.conf.put("partnerToken", options.get("partner_token"));
+        if (options.containsKey("account_id"))
+            this.conf.put("accountId", options.get("account_id"));
+        if (options.containsKey("tokenizer"))
+            this.conf.put("tokenizerUrl", options.get("tokenizer"));
         if (options.containsKey("url")) {
             this.conf.put("baseUri", options.get("url"));
         } else {

@@ -43,6 +43,7 @@ public class Request {
 			byte[] postDataBytes;
 			postDataBytes = requestOptions.toString().getBytes("UTF-8");
 			this.client.setRequestProperty("Content-Length", String.valueOf(postDataBytes.length));
+			this.client.setRequestProperty("Content-Type", "application/json");
 			client.setDoOutput(true);
 			OutputStream os = client.getOutputStream();
 			os.write(postDataBytes);
