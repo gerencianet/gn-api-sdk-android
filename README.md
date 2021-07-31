@@ -140,7 +140,7 @@ card.put("expiration_month", "12");
 card.put("expiration_year", "1234");
 
 try {
-    Gerencianet gn = new Gerencianet(options, context.getAssets());
+    Gerencianet gn = new Gerencianet(options);
     Map<String, Object> response = gn.call("paymentToken", new HashMap<String,String>(), card);
     System.out.println(response);
 }catch (GerencianetException e){
