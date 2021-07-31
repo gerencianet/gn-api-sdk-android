@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android;
+package br.com.gerencianet.mobile;
 
 
 import android.content.res.AssetManager;
@@ -48,8 +48,7 @@ public class Endpoints {
             response = kernelCall(endpoint, params, body);
         else
             response = new PaymentToken(this.config).generate(mapBody);
-        Map<String, Object> map = new Gson().fromJson(response.toString(), Map.class);
-        return map;
+        return new Gson().fromJson(response.toString(), Map.class);
     }
 
     private JsonObject kernelCall(String endpointName, Map<String, String> params, JsonObject body) throws Exception {

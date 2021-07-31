@@ -1,4 +1,4 @@
-  package br.com.gerencianet.sdk.android;
+  package br.com.gerencianet.mobile;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -10,8 +10,8 @@ import java.net.HttpURLConnection;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 
-import br.com.gerencianet.sdk.android.exceptions.AuthorizationException;
-import br.com.gerencianet.sdk.android.exceptions.GerencianetException;
+import br.com.gerencianet.mobile.exceptions.AuthorizationException;
+import br.com.gerencianet.mobile.exceptions.GerencianetException;
 
 public class Request {
 

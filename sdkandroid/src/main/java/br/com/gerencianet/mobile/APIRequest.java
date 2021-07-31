@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android;
+package br.com.gerencianet.mobile;
 
 import android.content.res.AssetManager;
 
@@ -12,7 +12,7 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import com.google.gson.JsonObject;
-import br.com.gerencianet.sdk.android.exceptions.AuthorizationException;
+import br.com.gerencianet.mobile.exceptions.AuthorizationException;
 
 public class APIRequest {
     private final Request requester;

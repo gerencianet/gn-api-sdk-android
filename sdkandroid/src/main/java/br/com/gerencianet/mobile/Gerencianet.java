@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android;
+package br.com.gerencianet.mobile;
 
 import android.content.res.AssetManager;
 

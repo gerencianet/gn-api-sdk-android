@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android.exceptions;
+package br.com.gerencianet.mobile.exceptions;
 
 import com.google.gson.JsonObject;
 
@@ -16,7 +16,7 @@ public class GerencianetException extends Exception {
 	private String errorDescription;
 
 	public GerencianetException(JsonObject response) {
-		String message = "";
+		String message;
 		if (response.has("error_description")) {
 			if (response.get("error_description").getClass().getSimpleName().equals("JSONObject")) {
 				JsonObject errorDescription = response.getAsJsonObject("error_description");

@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android.exceptions;
+package br.com.gerencianet.mobile.exceptions;
 
 /** This class extends to Exception and is developed to deal with authenticate errors
  * @author Filipe Mata

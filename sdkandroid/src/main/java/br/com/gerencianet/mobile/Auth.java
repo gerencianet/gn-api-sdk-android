@@ -1,4 +1,4 @@
-package br.com.gerencianet.sdk.android;
+package br.com.gerencianet.mobile;
 
 import android.content.res.AssetManager;
 import android.util.Base64;
@@ -15,8 +15,8 @@ import javax.net.ssl.HttpsURLConnection;
 import javax.net.ssl.KeyManagerFactory;
 import javax.net.ssl.SSLContext;
 import com.google.gson.JsonObject;
-import br.com.gerencianet.sdk.android.exceptions.AuthorizationException;
-import br.com.gerencianet.sdk.android.exceptions.GerencianetException;
+import br.com.gerencianet.mobile.exceptions.AuthorizationException;
+import br.com.gerencianet.mobile.exceptions.GerencianetException;
 
 public class Auth {
     private String accessToken;
