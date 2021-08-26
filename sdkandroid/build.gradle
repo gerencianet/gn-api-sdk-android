@@ -1,47 +1,26 @@
 apply plugin: 'com.android.library'
-apply plugin: 'maven-publish'
 
-afterEvaluate {
-    publishing {
-        publications {
-            mavenJava(MavenPublication) {
-                groupId = 'br.com.gerencianet.mobile'
-                artifactId = 'gn-api-sdk-android'
-                version = '1.0'
-                artifact "$buildDir/outputs/aar/sdkandroid-release.aar" //aar artifact you want to publish
-                pom {
-                    name = 'GN API SDK'
-                    description = 'Android SDK for integrating with Gerencianet API'
-                    licenses {
-                        license {
-                            name = 'MIT'
-                            url = 'https://github.com/gerencianet/gn-api-sdk-android/blob/master/LICENSE'
-                        }
-                    }
-                    developers {
-                        developer {
-                            id = 'igorpedroso'
-                            name = 'Igor Pedroso'
-                            email = 'igor.pedroso@gerencianet.com.br'
-                        }
-                    }
-                    scm {
-                        connection = 'scm:git:git://github.com/gerencianet/gn-api-sdk-android.git'
-                        developerConnection = 'scm:git:ssh://github.com/gerencianet/gn-api-sdk-android.git'
-                        url = 'https://github.com/gerencianet/gn-api-sdk-android'
-                    }
-                }
-            }
-        }
-        repositories {
-            maven {
-                url = 'https://s01.oss.sonatype.org/content/repositories/snapshots'
-            }
-        }
-    }
+ext {
+    PUBLISH_GROUP_ID = 'br.com.gerencianet.mobile'
+    PUBLISH_VERSION = '1.0.0'
+    PUBLISH_ARTIFACT_ID = 'gn-api-sdk-android'
+    PUBLISH_DESCRIPTION = 'Android SDK for integrating with Gerencianet API'
+    PUBLISH_URL = 'https://github.com/gerencianet/gn-api-sdk-android'
+    PUBLISH_LICENSE_NAME = 'MIT'
+    PUBLISH_LICENSE_URL =
+            'https://github.com/gerencianet/gn-api-sdk-android/blob/master/LICENSE'
+    PUBLISH_DEVELOPER_ID = 'igor'
+    PUBLISH_DEVELOPER_NAME = 'Igor Pedroso'
+    PUBLISH_DEVELOPER_EMAIL = 'igor.pedroso@gerencianet.com.br'
+    PUBLISH_SCM_CONNECTION =
+            'scm:git:github.com/gerencianet/gn-api-sdk-android.git'
+    PUBLISH_SCM_DEVELOPER_CONNECTION =
+            'scm:git:ssh://github.com/gerencianet/gn-api-sdk-android.git'
+    PUBLISH_SCM_URL =
+            'https://github.com/gerencianet/gn-api-sdk-android/tree/master'
 }
 
-
+apply from: "${rootProject.projectDir}/scripts/publish-module.gradle"
 
 android {
     compileSdkVersion 30
@@ -71,10 +50,7 @@ android {
 dependencies {
     implementation 'com.madgag.spongycastle:core:1.50.0.0'
     implementation 'com.google.code.gson:gson:2.8.7'
-    implementation 'androidx.appcompat:appcompat:1.3.0'
-    implementation 'com.google.android.material:material:1.4.0'
-    testImplementation 'junit:junit:4.+'
-    androidTestImplementation 'androidx.test.ext:junit:1.1.3'
-    androidTestImplementation 'androidx.test.espresso:espresso-core:3.4.0'
 }
+
+
 
