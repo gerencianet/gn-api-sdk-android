@@ -23,8 +23,6 @@ Ir para:
 ## Requisitos
 
 - Android 7.0+
-- com.madgag.spongycastle:core:1.50.0.0
-- com.google.code.gson:gson:2.8.7
 ## Instalação
 
 **Via gradle:**
